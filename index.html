@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Classique Café - Senopati</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Style Klasik */
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: #3e342f;
+            background-color: #fbf9f5;
+            margin: 0;
+            padding: 0;
+            display: flex; 
+            min-height: 100vh;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* --- 1. STRUKTUR SIDEBAR KIRI --- */
+        .sidebar {
+            width: 260px;
+            background-color: #dfc4a5; /* Warna krem/cokelat pastel hangat sesuai referensi */
+            border-right: 2px solid #2b231f;
+            display: flex;
+            flex-direction: column;
+            position: fixed; 
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        /* Area Logo Bulat */
+        .logo-section {
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 2px solid #2b231f;
+        }
+        .logo-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px double #2b231f;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fbf9f5;
+        }
+        .logo-circle i {
+            font-size: 40px;
+            color: #2b231f;
+        }
+
+        /* Menu Navigasi */
+        .nav-menu {
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #2b231f;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-menu a:hover {
+            color: #ffffff;
+            font-style: italic;
+        }
+
+        /* Sosial Media di Bagian Bawah Sidebar */
+        .social-section {
+            padding: 30px 20px;
+            border-top: 2px solid #2b231f;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-section a {
+            color: #2b231f;
+            font-size: 18px;
+            transition: transform 0.2s, color 0.2s;
+        }
+        .social-section a:hover {
+            color: #ffffff;
+            transform: scale(1.2);
+        }
+
+        /* --- 2. KONTEN UTAMA SEBELAH KANAN --- */
+        .main-content {
+            margin-left: 260px; 
+            flex-grow: 1;
+            padding: 0;
+        }
+
+        /* Banner Hero Utama */
+        .hero-banner {
+            background-color: #2b231f;
+            color: #f4eee1;
+            padding: 80px 40px;
+            text-align: center;
+            border-bottom: 5px solid #d4af37;
+        }
+        .hero-banner h1 {
+            font-size: 36px;
+            margin: 0 0 15px 0;
+            letter-spacing: 3px;
+            color: #d4af37;
+            font-weight: normal;
+        }
+        .hero-banner p {
+            font-size: 16px;
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #dfd5c6;
+            line-height: 1.6;
+        }
+
+        /* Konten Dalam Container */
+        .content-container {
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #2b231f;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: #d4af37;
+        }
+
+        /* Bagian Penjelasan Arsitektur Klasik */
+        .desc-box {
+            background-color: #ffffff;
+            border: 1px solid #e8e1d3;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: justify;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        /* Grid Menu Berjejer */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .menu-card {
+            background-color: #ffffff;
+            border: 1px solid #e8e1d3;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+            transition: transform 0.3s;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Pengaturan Ukuran Gambar Kosong Agar Otomatis Rapi Pas Diisi */
+        .menu-photo {
+            width: 100%;
+            height: 220px;
+            object-fit: cover; /* Gambar otomatis terpotong rapi tanpa merusak rasio asli */
+            border-bottom: 2px solid #d4af37;
+            background-color: #eae3d2; /* Warna dasar abu/krem sebelum gambar dimuat */
+        }
+
+        .menu-details {
+            padding: 20px;
+        }
+        .menu-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+        .menu-name {
+            font-weight: bold;
+            font-size: 18px;
+            color: #2b231f;
+        }
+        .menu-price {
+            color: #d4af37;
+            font-weight: bold;
+        }
+        .menu-text {
+            font-size: 13px;
+            color: #706055;
+            margin: 0;
+        }
+
+        /* Box Informasi Lokasi */
+        .location-box {
+            background-color: #2b231f;
+            color: #f4eee1;
+            padding: 30px;
+            border-left: 6px solid #d4af37;
+        }
+        .location-box h3 {
+            margin: 0 0 15px 0;
+            color: #d4af37;
+            font-size: 20px;
+            font-weight: normal;
+        }
+        .location-box p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        /* Responsif Layar HP */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo-circle">
+                <i class="fa-solid fa-mug-hot"></i>
+            </div>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="#">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">Keunggulan</a>
+            <a href="#">Menu Minuman</a>
+            <a href="#">Contact</a>
+        </div>
+        
+        <div class="social-section">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        
+        <div class="hero-banner">
+            <h1>Le Classique Café</h1>
+            <p>Menghidupkan Kembali Estetika Klasik Abad ke-19 dan Kemegahan Tradisi Eropa di Jantung Kota Jakarta.</p>
+        </div>
+
+        <div class="content-container">
+            
+            <h2 class="section-title">Keunggulan &amp; Arsitektur</h2>
+            <div class="desc-box">
+                <p><strong>Arsitektur Klasik Otentik:</strong> Berdiri megah di kawasan elit Senopati, gedung kami mengadopsi pilar-pilar tinggi bergaya Korintus, lantai marmer monokrom, serta ornamen kuningan antik mewah untuk menciptakan kenyamanan visual kelas atas yang tiada duanya.</p>
+                <p><strong>Suasana Eksklusif &amp; Intim:</strong> Berbeda dengan kebisingan jalanan ibu kota, susunan panel kayu mahogani tebal kami bekerja sebagai peredam suara alami, menghadirkan atmosfer yang tenang, damai, dan sangat privat.</p>
+            </div>
+
+            <h2 class="section-title">Our Premium Drinks</h2>
+            <div class="menu-grid">
+                
+                <div class="menu-card">
+                    <img src="https://storage.cornercoffeestore.com/2022/10/espresso-romano-coffee-serve-with-lemon_Darunee-komkuntood_Shutterstock.jpg ">
+                    
+                    <div class="menu-details">
+                        <div class="menu-meta">
+                            <span class="menu-name">Espresso Romano</span>
+                            <span class="menu-price">48k</span>
+                        </div>
+                        <p class="menu-text">Sajian espresso double-shot tradisional pekat murni yang diberi twist perasan serta garnish kulit jeruk lemon organik.</p>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <img src="" alt="Café au Lait" class="menu-photo">
+                    
+                    <div class="menu-details">
+                        <div class="menu-meta">
+                            <span class="menu-name">Café au Lait</span>
+                            <span class="menu-price">55k</span>
+                        </div>
+                        <p class="menu-text">Gaya kopi susu khas Prancis yang memadukan kelembutan ekstra mikro-foam premium dibalut rasa manis madu hutan alami asli.</p>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <img src="" alt="Earl Grey Latte" class="menu-photo">
+                    
+                    <div class="menu-details">
+                        <div class="menu-meta">
+                            <span class="menu-name">Earl Grey Latte</span>
+                            <span class="menu-price">62k</span>
+                        </div>
+                        <p class="menu-text">Seduhan premium daun teh Earl Grey beraroma bergamot khas Kerajaan Inggris dengan racikan susu murni ber-uap hangat.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="location-box">
+                <h3>Lokasi &amp; Informasi Kontak</h3>
+                <p><i class="fa-solid fa-location-dot" style="color: #d4af37; margin-right: 8px;"></i> <strong>Alamat:</strong> Jl. Senopati No. 88, Kebayoran Baru, Jakarta Selatan (Tepat bersebelahan dengan Taman Senopati)</p>
+                <p><i class="fa-solid fa-clock" style="color: #d4af37; margin-right: 8px;"></i> <strong>Jam Buka:</strong> Setiap Hari | 08.00 - 22.00 WIB</p>
+                <p><i class="fa-solid fa-phone" style="color: #d4af37; margin-right: 8px;"></i> <strong>Reservasi Lapangan:</strong> +62 21-5555-889</p>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
